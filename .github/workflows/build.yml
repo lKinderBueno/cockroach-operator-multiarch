@@ -22,6 +22,7 @@ jobs:
           BRANCH=release-2.13.0
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=version::${VERSION}
+          echo ::set-output name=branch::${BRANCH}
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
       - name: Set up QEMU
@@ -39,7 +40,7 @@ jobs:
           go-version: "stable"
       - run: go version
       - name: Clone cockroach-operator at tag
-        run: git clone --single-branch --branch $BRANCH https://github.com/lKinderBueno/cockroach-operator.git
+        run: git clone --single-branch --branch $branch https://github.com/lKinderBueno/cockroach-operator.git
         env:
           version: ${{ steps.prep.outputs.version }}
       - name: Build amd64 version
