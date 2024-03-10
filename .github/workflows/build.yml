@@ -5,6 +5,10 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,7 +21,7 @@ jobs:
       - name: Prepare
         id: prep
         run: |
-          DOCKER_IMAGE=ghcr.io/lkinderbueno/cockroach-operator-multiarch
+          DOCKER_IMAGE=ghcr.io/lkinderbueno/cockroach-operator
           VERSION=v2.13.0
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo ::set-output name=version::${VERSION}
@@ -53,8 +57,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.prep.outputs.tags }}
-          cache-from: type=registry,ref=ghcr.io/lkinderbueno/cockroach-operator-multiarch:buildcache
-          cache-to: type=registry,ref=ghcr.io/lkinderbueno/cockroach-operator-multiarch:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/lkinderbueno/cockroach-operator:buildcache
+          cache-to: type=registry,ref=ghcr.io/lkinderbueno/cockroach-operator:buildcache,mode=max
           labels: |
             org.opencontainers.image.title=${{ fromJson(steps.repo.outputs.result).name }}
             org.opencontainers.image.description=${{ fromJson(steps.repo.outputs.result).description }}
