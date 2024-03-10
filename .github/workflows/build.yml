@@ -39,7 +39,7 @@ jobs:
           go-version: "stable"
       - run: go version
       - name: Clone cockroach-operator at tag
-        run: git clone --single-branch --branch https://github.com/lKinderBueno/cockroach-operator.git
+        run: git clone --single-branch --branch master https://github.com/lKinderBueno/cockroach-operator.git
         env:
           version: ${{ steps.prep.outputs.version }}
       - name: Build amd64 version
