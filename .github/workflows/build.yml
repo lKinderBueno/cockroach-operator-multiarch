@@ -30,7 +30,7 @@ jobs:
         id: prep
         run: |
           DOCKER_IMAGE=ghcr.io/lkinderbueno/cockroach-operator
-          VERSION=v2.13.0
+          VERSION=v2.14.0
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
