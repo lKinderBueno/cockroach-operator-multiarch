@@ -30,7 +30,7 @@ jobs:
         id: prep
         run: |
           DOCKER_IMAGE=ghcr.io/lkinderbueno/cockroach-operator
-          VERSION=v2.14.0
+          VERSION=v2.14.0-edited
           TAGS="${DOCKER_IMAGE}:${VERSION}"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "branch=${BRANCH}" >> $GITHUB_OUTPUT
@@ -51,7 +51,7 @@ jobs:
           go-version: "stable"
       - run: go version
       - name: Clone cockroach-operator at tag
-        run: git clone --single-branch --branch $version https://github.com/cockroachdb/cockroach-operator.git
+        run: git clone --single-branch --branch $version https://github.com/lKinderBueno/cockroach-operator.git
         env:
           version: ${{ steps.prep.outputs.version }}
       - name: Build amd64 version
